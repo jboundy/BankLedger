@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BankLedger.DataAccess.Interfaces;
 using BankLedger.DataAccess.Models;
 
@@ -7,9 +8,10 @@ namespace BankLedger.DataAccess
     public class AccountDetails : IAccountDetails
     {
         private Account _account;
+        private IAccountManagement _accountManagement;
         public AccountDetails(string username)
         {
-            _account = GetAccount(username);
+            _account = _accountManagement.GetAccounts().SingleOrDefault(a => a.Username == username);
         }
 
         public void ModifyBalance(TransactionType type, decimal amount)

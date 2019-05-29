@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using BankLedger.BLL.Interfaces;
 using BankLedger.DataAccess;
 using BankLedger.DataAccess.Interfaces;
-using BankLedger.DataAccess.Models;
 
 namespace BankLedger.BLL
 {
@@ -26,9 +24,10 @@ namespace BankLedger.BLL
             return false;
         }
 
-        public Account Login(string username, string password)
+        public bool Login(string username, string password)
         {
-            return _accountManagement.Login(username, password);
+            return !string.IsNullOrEmpty(_accountManagement.Login(username, password).Username);
+            
         }
     }
 }

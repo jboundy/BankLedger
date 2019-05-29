@@ -8,4 +8,8 @@
     <ProjectReference Include="..\BankLedger.DataAccess\BankLedger.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

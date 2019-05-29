@@ -6,11 +6,14 @@ namespace BankLedger.DataAccess
 {
     public class AccountManagement : IAccountManagement
     {
+        public AccountManagement()
+        {
+            Accounts = new List<Account>();
+        }
         public List<Account> Accounts { get; set; }
 
         public void CreateAccount(string userName, string password)
         {
-            Accounts = GetAccounts();
             Accounts.Add(new Account
             {
                 Username = userName,
