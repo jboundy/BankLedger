@@ -28,6 +28,9 @@ namespace BankLedger.DataAccess
             return Accounts.Find(x => x.Username == username && x.Password == password);
         }
 
-        public void Logout() { }
+        public void Logout(string username)
+        {
+
+        }
     }
 }

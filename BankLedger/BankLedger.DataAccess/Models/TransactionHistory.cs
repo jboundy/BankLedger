@@ -6,8 +6,14 @@ namespace BankLedger.DataAccess.Models
 {
     public class TransactionHistory
     {
-        public DateTime ChangedDate { get; set; }
-        public TransactionType Type { get; set;}
-        public decimal AmountChanged { get; set; }
+        public TransactionHistory(TransactionType type, decimal amount)
+        {
+            ChangedDate = DateTime.Now;
+            Type = type;
+            AmountChanged = amount;
+        }
+        public DateTime ChangedDate { get;}
+        public TransactionType Type { get;}
+        public decimal AmountChanged { get;}
     }
 }

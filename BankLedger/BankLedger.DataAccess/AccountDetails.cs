@@ -7,10 +7,10 @@ namespace BankLedger.DataAccess
 {
     public class AccountDetails : IAccountDetails
     {
-        protected Account _account;
+        protected IAccountDetails _account;
         public AccountDetails(string username)
         {
-            var accountManagement = 
+            var accountManagement = new AccountManagement().Accounts;
             _account = accountManagement.Find(x => x.Username == username);
         }
 
@@ -42,12 +42,7 @@ namespace BankLedger.DataAccess
 
         private void LogTransaction(TransactionType type, decimal amountChanged)
         {
-            _account.TransactionHistory.Add(new TransactionHistory
-            {
-                ChangedDate = DateTime.Now,
-                Type = type,
-                AmountChanged = amountChanged
-            });
+            _account.TransactionHistory.Add(new TransactionHistory(type, amountChanged));
         }
     }
 }
