@@ -9,10 +9,10 @@ namespace BankLedger.BLL
 {
     public class BalanceAccess
     {
-        private IAccountDetails _accountDetails;
+        protected IAccountDetails _accountDetails;
         public BalanceAccess(string username)
         {
-            _accountDetails = n
+            _accountDetails = new AccountDetails(username);
         }
         public void DepositFunds(decimal amount)
         {
@@ -31,6 +31,18 @@ namespace BankLedger.BLL
         public decimal CurrentBalance(string username)
         {
            return _accountDetails.BalanceInquiry();
+        }
+
+        public List<string> RetrieveTransactions()
+        {
+            var transactions = _accountDetails.AllTransactions();
+            var transactionHistoryList = new List<string>();
+            foreach (var transaction in transactions)
+            {
+                transactionHistoryList.Add($"Type: {transaction.Type}, Date Changed: {transaction.ChangedDate} Amount: {transaction.AmountChanged}");
+            }
+
+            return transactionHistoryList;
         }
     }
 }

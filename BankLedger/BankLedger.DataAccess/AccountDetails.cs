@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BankLedger.DataAccess.Interfaces;
 using BankLedger.DataAccess.Models;
 
@@ -6,10 +7,11 @@ namespace BankLedger.DataAccess
 {
     public class AccountDetails : IAccountDetails
     {
-        private Account _account;
-        public AccountDetails(string userName)
+        protected Account _account;
+        public AccountDetails(string username)
         {
-            _account = FindAccount(userName);
+            var accountManagement = 
+            _account = accountManagement.Find(x => x.Username == username);
         }
 
         public void ModifyBalance(TransactionType type, decimal amount)
@@ -33,7 +35,12 @@ namespace BankLedger.DataAccess
             return _account.Balance;
         }
 
-        public void LogTransaction(TransactionType type, decimal amountChanged)
+        public List<TransactionHistory> AllTransactions()
+        {
+            return _account.TransactionHistory;
+        }
+
+        private void LogTransaction(TransactionType type, decimal amountChanged)
         {
             _account.TransactionHistory.Add(new TransactionHistory
             {

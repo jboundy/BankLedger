@@ -1,4 +1,5 @@
-﻿using BankLedger.DataAccess.Models;
+﻿using System.Collections.Generic;
+using BankLedger.DataAccess.Models;
 
 namespace BankLedger.DataAccess.Interfaces
 {
@@ -6,5 +7,6 @@ namespace BankLedger.DataAccess.Interfaces
     {
         void ModifyBalance(TransactionType type, decimal amount);
         decimal BalanceInquiry();
+        List<TransactionHistory> AllTransactions();
     }
 }
