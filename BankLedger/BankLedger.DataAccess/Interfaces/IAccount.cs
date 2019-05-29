@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using BankLedger.DataAccess.Models;
 
 namespace BankLedger.DataAccess.Interfaces
 {
-    public interface IAccount
+    public interface IAccountManagement
     {
         void CreateAccount(string userName, string password);
         Account Login(string username, string password);
-        void Logout(string username);
+        List<Account> GetAccounts();
     }
 }

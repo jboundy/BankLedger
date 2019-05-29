@@ -1,36 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BankLedger.BLL.Interfaces;
 using BankLedger.DataAccess;
 using BankLedger.DataAccess.Interfaces;
 using BankLedger.DataAccess.Models;
 
 namespace BankLedger.BLL
 {
-    public class BalanceAccess
+    public class BalanceAccess : IBalanceAccess
     {
         protected IAccountDetails _accountDetails;
         public BalanceAccess(string username)
         {
             _accountDetails = new AccountDetails(username);
         }
-        public void DepositFunds(decimal amount)
+        public decimal DepositFunds(decimal amount)
         {
             _accountDetails.ModifyBalance(TransactionType.Deposit, amount);
+            return _accountDetails.BalanceInquiry();
         }
 
-        public void WithdrawFunds(string userName, decimal amount)
+        public decimal WithdrawFunds(decimal amount)
         {
             var balance = _accountDetails.BalanceInquiry();
             if (balance >= amount)
             {
                 _accountDetails.ModifyBalance(TransactionType.Withdraw, amount);
             }
+
+            return _accountDetails.BalanceInquiry();
         }
 
         public decimal CurrentBalance(string username)
         {
-           return _accountDetails.BalanceInquiry();
+            if (!string.IsNullOrEmpty(username))
+            {
+
+                return _accountDetails.BalanceInquiry();
+
+            }
+
+            return 0;
         }
 
         public List<string> RetrieveTransactions()

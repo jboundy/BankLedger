@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BankLedger.DataAccess.Interfaces;
 using BankLedger.DataAccess.Models;
 
@@ -7,7 +6,7 @@ namespace BankLedger.DataAccess
 {
     public class AccountDetails : IAccountDetails
     {
-        protected IAccountDetails _account;
+        private Account _account;
         public AccountDetails(string username)
         {
             var accountManagement = new AccountManagement().Accounts;

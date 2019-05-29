@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BankLedger.DataAccess.Models
+﻿namespace BankLedger.DataAccess.Models
 {
     public enum TransactionType
     {
