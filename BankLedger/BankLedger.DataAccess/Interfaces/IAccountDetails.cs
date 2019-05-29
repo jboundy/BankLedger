@@ -4,9 +4,7 @@ namespace BankLedger.DataAccess.Interfaces
 {
     public interface IAccountDetails
     {
-        void Deposit(decimal amountToDeposit);
-        void Withdraw(decimal amountToWithdraw);
+        void ModifyBalance(TransactionType type, decimal amount);
         decimal BalanceInquiry();
-        void LogTransaction(TransactionType type);
     }
 }

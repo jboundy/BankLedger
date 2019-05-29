@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using BankLedger.DataAccess;
+using BankLedger.DataAccess.Interfaces;
+using BankLedger.DataAccess.Models;
 
 namespace BankLedger.BLL
 {
     public class BalanceAccess
     {
-        private AccountDetails _accountDetails;
+        private IAccountDetails _accountDetails;
         public BalanceAccess(string username)
         {
-            _accountDetails = new AccountDetails(username);
+            _accountDetails = n
         }
-        public void DepositFunds(string username, decimal amount)
+        public void DepositFunds(decimal amount)
         {
-            _accountDetails.Deposit(amount);
+            _accountDetails.ModifyBalance(TransactionType.Deposit, amount);
         }
 
         public void WithdrawFunds(string userName, decimal amount)
@@ -22,7 +24,7 @@ namespace BankLedger.BLL
             var balance = _accountDetails.BalanceInquiry();
             if (balance >= amount)
             {
-                _accountDetails.Withdraw(amount);
+                _accountDetails.ModifyBalance(TransactionType.Withdraw, amount);
             }
         }
 

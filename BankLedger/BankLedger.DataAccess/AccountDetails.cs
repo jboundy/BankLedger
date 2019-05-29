@@ -11,19 +11,21 @@ namespace BankLedger.DataAccess
         {
             _account = FindAccount(userName);
         }
-        public void Deposit(decimal amountToDeposit)
-        {
-            _account.Balance += amountToDeposit;
-            LogTransaction(TransactionType.Deposit);
-        }
 
-        public void Withdraw(decimal amountToWithdraw)
+        public void ModifyBalance(TransactionType type, decimal amount)
         {
-            if (amountToWithdraw <= _account.Balance)
+            switch (type)
             {
-                _account.Balance -= amountToWithdraw;
+              case TransactionType.Deposit:
+                  _account.Balance += amount;
+                  break;
+
+              case TransactionType.Withdraw:
+                  _account.Balance -= amount;
+                  break;
             }
-            LogTransaction(TransactionType.Withdraw);
+
+            LogTransaction(type, amount);
         }
 
         public decimal BalanceInquiry()
@@ -31,12 +33,13 @@ namespace BankLedger.DataAccess
             return _account.Balance;
         }
 
-        public void LogTransaction(TransactionType type)
+        public void LogTransaction(TransactionType type, decimal amountChanged)
         {
             _account.TransactionHistory.Add(new TransactionHistory
             {
                 ChangedDate = DateTime.Now,
-                Type = type
+                Type = type,
+                AmountChanged = amountChanged
             });
         }
     }
