@@ -9,8 +9,7 @@ namespace BankLedger.DataAccess
         private Account _account;
         public AccountDetails(string username)
         {
-            var accountManagement = new AccountManagement().Accounts;
-            _account = accountManagement.Find(x => x.Username == username);
+            _account = GetAccount(username);
         }
 
         public void ModifyBalance(TransactionType type, decimal amount)

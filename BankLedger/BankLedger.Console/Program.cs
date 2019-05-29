@@ -53,7 +53,7 @@ namespace BankLedger.ConsoleInterface
                         Console.WriteLine("Please enter password");
                         password = Console.ReadLine();
                         account = accountManagement.Login(username, password);
-                        balanceDetails = new BalanceAccess(account.Username);
+                        balanceDetails = new BalanceAccess(username);
                         Console.WriteLine(Environment.NewLine);
                         if (account != null)
                         {
