@@ -44,16 +44,9 @@ namespace BankLedger.BLL
             return 0;
         }
 
-        public List<string> RetrieveTransactions()
+        public List<TransactionHistory> RetrieveTransactions()
         {
-            var transactions = _accountDetails.AllTransactions();
-            var transactionHistoryList = new List<string>();
-            foreach (var transaction in transactions)
-            {
-                transactionHistoryList.Add($"Type: {transaction.Type}, Date Changed: {transaction.ChangedDate} Amount: {transaction.AmountChanged}");
-            }
-
-            return transactionHistoryList;
+            return _accountDetails.AllTransactions();
         }
     }
 }

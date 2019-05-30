@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankLedger.Console", "BankL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankLedger.Web", "BankLedger.Web\BankLedger.Web.csproj", "{56386348-212F-4664-A8ED-9C34E37A2ADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankLedger.Tests", "BankLedger.Tests\BankLedger.Tests.csproj", "{F3C9A72F-592E-422B-888E-7CB74FA3BDEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankLedger.Tests", "BankLedger.Tests\BankLedger.Tests.csproj", "{F3C9A72F-592E-422B-888E-7CB74FA3BDEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD9B534A-9AB2-4CBE-936F-FF3BD6EAEB28}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

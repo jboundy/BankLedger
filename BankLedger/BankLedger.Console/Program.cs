@@ -84,7 +84,7 @@ namespace BankLedger.ConsoleInterface
                                         {
                                             foreach (var transaction in transactions)
                                             {
-                                                Console.WriteLine(transaction);
+                                                Console.WriteLine($"Type: {transaction.Type}, Date Changed: {transaction.ChangedDate} Amount: {transaction.AmountChanged}");
                                             }
                                         }
                                         else
