@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using BankLedger.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BankLedger.Web.Models;
 
@@ -10,28 +8,29 @@ namespace BankLedger.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IAccountAccess _accountAccess;
+        public HomeController(IAccountAccess accountAccess)
+        {
+            _accountAccess = accountAccess;
+        }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        [HttpPost]
+        public async Task<IActionResult> AccountCreate([FromQuery] string username, string password)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            if (!ModelState.IsValid) return BadRequest();
+            await Task.Run(() => _accountAccess.AccountCreate(username,password));
+            return Ok();
         }
 
-        public IActionResult Contact()
+        [HttpGet]
+        public async Task<IActionResult> AccountLogin(string username, string password)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            var account = await Task.Run(() => _accountAccess.Login(username, password));
+            return ViewComponent("BalanceComponent", account);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

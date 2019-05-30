@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using BankLedger.BLL.Interfaces;
 using BankLedger.BLL.Models;
 using BankLedger.DataAccess;
@@ -13,7 +13,6 @@ namespace BankLedger.BLL
         public BalanceAccess(ActiveAccount activeAccount)
         {
             _accountDetails = new AccountDetails(activeAccount);
-            
         }
         public decimal DepositFunds(decimal amount)
         {
@@ -36,17 +35,15 @@ namespace BankLedger.BLL
         {
             if (!string.IsNullOrEmpty(username))
             {
-
                 return _accountDetails.BalanceInquiry();
-
             }
 
             return 0;
         }
 
-        public List<TransactionHistory> RetrieveTransactions()
+        public ReadOnlyCollection<TransactionHistory> RetrieveTransactions()
         {
-            return _accountDetails.AllTransactions();
+            return _accountDetails.AllTransactions().AsReadOnly();
         }
     }
 }

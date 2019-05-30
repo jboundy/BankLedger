@@ -1,24 +1,28 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using BankLedger.BLL.Interfaces;
 using BankLedger.BLL.Models;
-using BankLedger.DataAccess;
-using BankLedger.DataAccess.Interfaces;
+using BankLedger.DataAccess.Models;
 
 namespace BankLedger.BLL
 {
     public class AccountAccess : IAccountAccess
     {
-        private IAccountManagement _accountManagement;
         public AccountAccess()
         {
-            _accountManagement = new AccountManagement();
+            Accounts = new List<Account>();
         }
+        public List<Account> Accounts { get; set; }
         public bool AccountCreate(string username, string password)
         {
-            var accounts = _accountManagement.GetAccounts();
+            var accounts = GetAccounts();
             if (accounts.All(x => x.Username != username))
             {
-                _accountManagement.CreateAccount(username, password);
+                Accounts.Add(new Account
+                {
+                    Username = username,
+                    Password = password
+                });
                 return true;
             }
 
@@ -27,7 +31,7 @@ namespace BankLedger.BLL
 
         public ActiveAccount Login(string username, string password)
         {
-            var account = _accountManagement.Login(username, password);
+            var account = Accounts.Find(x => x.Username == username && x.Password == password);
             if (account != null)
             {
                 return new ActiveAccount
@@ -40,6 +44,16 @@ namespace BankLedger.BLL
             }
 
             return new ActiveAccount();
+        }
+        
+        public List<Account> GetAccounts()
+        {
+            if (Accounts != null)
+            {
+                return Accounts;
+            }
+
+            return new List<Account>();
         }
     }
 }
