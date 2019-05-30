@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using BankLedger.BLL.Interfaces;
-using BankLedger.BLL.Models;
 using BankLedger.DataAccess;
 using BankLedger.DataAccess.Interfaces;
 using BankLedger.DataAccess.Models;
@@ -10,7 +9,7 @@ namespace BankLedger.BLL
     public class BalanceAccess : IBalanceAccess
     {
         protected IAccountDetails _accountDetails;
-        public BalanceAccess(ActiveAccount activeAccount)
+        public BalanceAccess(IAccount activeAccount)
         {
             _accountDetails = new AccountDetails(activeAccount);
         }
@@ -31,14 +30,9 @@ namespace BankLedger.BLL
             return _accountDetails.BalanceInquiry();
         }
 
-        public decimal CurrentBalance(string username)
+        public decimal CurrentBalance()
         {
-            if (!string.IsNullOrEmpty(username))
-            {
-                return _accountDetails.BalanceInquiry();
-            }
-
-            return 0;
+            return _accountDetails.BalanceInquiry();
         }
 
         public ReadOnlyCollection<TransactionHistory> RetrieveTransactions()

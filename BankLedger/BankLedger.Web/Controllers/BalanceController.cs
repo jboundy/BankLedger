@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BankLedger.BLL.Interfaces;
+﻿using BankLedger.BLL.Interfaces;
+using BankLedger.BLL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankLedger.Web.Controllers
@@ -16,32 +13,38 @@ namespace BankLedger.Web.Controllers
             _balanceAccess = balanceAccess;
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Withdraw(decimal amount)
+        [HttpGet]
+        public IActionResult Index(ActiveAccount account)
         {
-            if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult(await Task.Run(() => _balanceAccess.WithdrawFunds(amount)));
+            return View("Index", account);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Deposit(decimal amount)
+        public IActionResult Withdraw(decimal amount)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult(await Task.Run(() => _balanceAccess.DepositFunds(amount)));
+            return new JsonResult( _balanceAccess.WithdrawFunds(amount));
+        }
+
+        [HttpPut]
+        public IActionResult Deposit(decimal amount)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            return new JsonResult( _balanceAccess.DepositFunds(amount));
         }
 
         [HttpGet]
-        public async Task<IActionResult> CurrentBalance(string username)
+        public IActionResult CurrentBalance()
         {
             if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult(await Task.Run(() => _balanceAccess.CurrentBalance(username)));
+            return new JsonResult( _balanceAccess.CurrentBalance());
         }
 
-        [HttpPut]
-        public async Task<IActionResult> TransactionHistory()
+        [HttpGet]
+        public IActionResult TransactionHistory()
         {
             if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult(await Task.Run(() => _balanceAccess.RetrieveTransactions()));
+            return new JsonResult( _balanceAccess.RetrieveTransactions());
         }
     }
 }

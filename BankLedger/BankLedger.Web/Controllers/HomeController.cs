@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
 using BankLedger.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BankLedger.Web.Models;
@@ -19,18 +18,18 @@ namespace BankLedger.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AccountCreate([FromQuery] string username, string password)
+        public IActionResult AccountCreate([FromForm] string username, string password)
         {
             if (!ModelState.IsValid) return BadRequest();
-            await Task.Run(() => _accountAccess.AccountCreate(username,password));
+            _accountAccess.AccountCreate(username,password);
             return Ok();
         }
 
         [HttpGet]
-        public async Task<IActionResult> AccountLogin(string username, string password)
+        public IActionResult AccountLogin(string username, string password)
         {
-            var account = await Task.Run(() => _accountAccess.Login(username, password));
-            return ViewComponent("BalanceComponent", account);
+            var account = _accountAccess.Login(username, password);
+            return new JsonResult(account);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

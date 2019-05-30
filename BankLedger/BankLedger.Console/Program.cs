@@ -75,7 +75,7 @@ namespace BankLedger.ConsoleInterface
                                         Console.WriteLine($"Your new balance is ${withdrawnBalance}" + Environment.NewLine);
                                         break;
                                     case "3":
-                                        var balance = balanceDetails.CurrentBalance(username);
+                                        var balance = balanceDetails.CurrentBalance();
                                         Console.WriteLine($"Your current balance is ${balance}" + Environment.NewLine);
                                         break;
                                     case "4":

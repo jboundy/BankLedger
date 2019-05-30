@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using BankLedger.DataAccess.Interfaces;
 
 namespace BankLedger.DataAccess.Models
 {
-    public class Account
+    public class Account : IAccount
     {
         public Account()
         {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using BankLedger.DataAccess.Models;
 
 namespace BankLedger.BLL.Interfaces
@@ -8,7 +7,7 @@ namespace BankLedger.BLL.Interfaces
     {
         decimal DepositFunds(decimal amount);
         decimal WithdrawFunds(decimal amount);
-        decimal CurrentBalance(string username);
+        decimal CurrentBalance();
         ReadOnlyCollection<TransactionHistory> RetrieveTransactions();
     }
 }

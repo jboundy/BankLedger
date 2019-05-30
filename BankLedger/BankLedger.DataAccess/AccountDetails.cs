@@ -6,8 +6,8 @@ namespace BankLedger.DataAccess
 {
     public class AccountDetails : IAccountDetails
     {
-        private Account _account;
-        public AccountDetails(Account account)
+        private IAccount _account;
+        public AccountDetails(IAccount account)
         {
             _account = account;
         }

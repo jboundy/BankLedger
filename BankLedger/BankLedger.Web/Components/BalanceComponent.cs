@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BankLedger.BLL.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BankLedger.Web.Components
 {
     public class BalanceComponent : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(ActiveAccount account)
         {
-            return View("BalanceComponent");
+            return View("BalanceComponent", account);
         }
     }
 }
