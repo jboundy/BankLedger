@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BankLedger.BLL.Interfaces;
+using BankLedger.BLL.Models;
 using BankLedger.DataAccess;
 using BankLedger.DataAccess.Interfaces;
 using BankLedger.DataAccess.Models;
@@ -9,9 +10,10 @@ namespace BankLedger.BLL
     public class BalanceAccess : IBalanceAccess
     {
         protected IAccountDetails _accountDetails;
-        public BalanceAccess(string username)
+        public BalanceAccess(ActiveAccount activeAccount)
         {
-            _accountDetails = new AccountDetails(username);
+            _accountDetails = new AccountDetails(activeAccount);
+            
         }
         public decimal DepositFunds(decimal amount)
         {

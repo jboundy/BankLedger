@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using BankLedger.DataAccess.Interfaces;
 using BankLedger.DataAccess.Models;
 
@@ -8,12 +7,10 @@ namespace BankLedger.DataAccess
     public class AccountDetails : IAccountDetails
     {
         private Account _account;
-        private IAccountManagement _accountManagement;
-        public AccountDetails(string username)
+        public AccountDetails(Account account)
         {
-            _account = _accountManagement.GetAccounts().SingleOrDefault(a => a.Username == username);
+            _account = account;
         }
-
         public void ModifyBalance(TransactionType type, decimal amount)
         {
             switch (type)
@@ -23,7 +20,10 @@ namespace BankLedger.DataAccess
                   break;
 
               case TransactionType.Withdraw:
-                  _account.Balance -= amount;
+                  if (_account.Balance >= amount)
+                  {
+                      _account.Balance -= amount;
+                  }
                   break;
             }
 

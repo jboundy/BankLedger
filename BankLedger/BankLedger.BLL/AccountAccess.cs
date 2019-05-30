@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using BankLedger.BLL.Interfaces;
+using BankLedger.BLL.Models;
 using BankLedger.DataAccess;
 using BankLedger.DataAccess.Interfaces;
 
@@ -24,10 +25,21 @@ namespace BankLedger.BLL
             return false;
         }
 
-        public bool Login(string username, string password)
+        public ActiveAccount Login(string username, string password)
         {
-            return !string.IsNullOrEmpty(_accountManagement.Login(username, password).Username);
-            
+            var account = _accountManagement.Login(username, password);
+            if (account != null)
+            {
+                return new ActiveAccount
+                {
+                    Balance = account.Balance,
+                    Password = account.Password,
+                    TransactionHistory = account.TransactionHistory,
+                    Username = account.Username
+                };
+            }
+
+            return new ActiveAccount();
         }
     }
 }

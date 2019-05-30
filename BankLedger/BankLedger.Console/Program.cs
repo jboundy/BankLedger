@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BankLedger.BLL;
 using BankLedger.BLL.Interfaces;
 
@@ -6,12 +7,10 @@ namespace BankLedger.ConsoleInterface
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             var endApp = false;
             IAccountAccess accountManagement = new AccountAccess();
-            IBalanceAccess balanceDetails = null;
             while (!endApp)
             {
                 Console.Write("Please select from the options below" +
@@ -20,10 +19,9 @@ namespace BankLedger.ConsoleInterface
                                  Environment.NewLine +
                                  "2: Login" +
                                  Environment.NewLine +
-                                 "3: Exit");
+                                 "3: Exit" + Environment.NewLine);
                 var username = "";
                 var password = "";
-                decimal amount = 0;
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -40,15 +38,17 @@ namespace BankLedger.ConsoleInterface
                         username = Console.ReadLine();
                         Console.WriteLine("Please enter password");
                         password = Console.ReadLine();
-                        var canLogin = accountManagement.Login(username, password);
-                        if (canLogin)
+                        var activeAccount = accountManagement.Login(username, password);
+                        if (!string.IsNullOrEmpty(activeAccount.Username))
                         {
-                            balanceDetails = new BalanceAccess(username);
+                            IBalanceAccess balanceDetails = new BalanceAccess(activeAccount);
                             Console.WriteLine(Environment.NewLine);
                             Console.WriteLine("Account Logged in!");
+                            var canLogin = true;
                             while (canLogin)
                             {
-                                Console.WriteLine(Environment.NewLine +
+                                Console.WriteLine("What would you like to do?" +
+                                                  Environment.NewLine +
                                                   "1: Deposit" +
                                                   Environment.NewLine +
                                                   "2: Withdraw" +
@@ -59,6 +59,7 @@ namespace BankLedger.ConsoleInterface
                                                   Environment.NewLine +
                                                   "5: Logout" + Environment.NewLine);
 
+                                decimal amount = 0;
                                 switch (Console.ReadLine())
                                 {
                                     case "1":
@@ -79,15 +80,21 @@ namespace BankLedger.ConsoleInterface
                                         break;
                                     case "4":
                                         var transactions = balanceDetails.RetrieveTransactions();
-                                        foreach (var transaction in transactions)
+                                        if (transactions.Any())
                                         {
-                                            Console.WriteLine(transaction);
+                                            foreach (var transaction in transactions)
+                                            {
+                                                Console.WriteLine(transaction);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("No transactions have been made");
                                         }
                                         Console.WriteLine(Environment.NewLine);
                                         break;
                                     case "5":
                                         canLogin = false;
-                                        Environment.Exit(Environment.ExitCode);
                                         break;
                                 }
                             }
