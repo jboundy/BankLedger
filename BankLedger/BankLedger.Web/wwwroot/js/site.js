@@ -20,10 +20,7 @@
         url: 'Balance/Index',
         data: account,
         contentType: 'json',
-        type: 'GET',
-        success: function() {
-            
-        }
+        type: 'GET'
     });
 });
 
