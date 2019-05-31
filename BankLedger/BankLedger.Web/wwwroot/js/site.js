@@ -22,7 +22,7 @@
         contentType: 'json',
         type: 'GET',
         success: function() {
-            
+            window.location.href = "/Balance/Index?account="+account;
         }
     });
 });
