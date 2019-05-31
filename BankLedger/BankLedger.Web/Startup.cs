@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BankLedger.BLL;
+﻿using BankLedger.BLL;
 using BankLedger.BLL.Interfaces;
 using BankLedger.BLL.Models;
 using BankLedger.DataAccess.Interfaces;
-using BankLedger.DataAccess.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,13 +29,9 @@ namespace BankLedger.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddSingleton<IAccount, ActiveAccount>();
             services.AddSingleton<IAccountAccess, AccountAccess>();
-            services.AddSingleton<IBalanceAccess, BalanceAccess>((ctx) =>
-            {
-                IAccount account = ctx.GetService<IAccount>();
-                return new BalanceAccess(account);
-            });
+            services.AddSingleton<IBalanceAccess, BalanceAccess>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

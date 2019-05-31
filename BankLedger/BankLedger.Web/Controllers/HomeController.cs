@@ -29,8 +29,7 @@ namespace BankLedger.Web.Controllers
         public IActionResult AccountLogin(string username, string password)
         {
             var account = _accountAccess.Login(username, password);
-            RedirectToAction("Index", "Balance", account);
-            return Ok();
+            return new JsonResult(account);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

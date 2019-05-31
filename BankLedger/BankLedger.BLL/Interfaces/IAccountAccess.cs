@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using BankLedger.BLL.Models;
-using BankLedger.DataAccess.Models;
+﻿using BankLedger.BLL.Models;
 
 namespace BankLedger.BLL.Interfaces
 {
@@ -8,6 +6,6 @@ namespace BankLedger.BLL.Interfaces
     {
         bool AccountCreate(string username, string password);
         ActiveAccount Login(string username, string password);
-        List<Account> GetAccounts();
+        void UpdateAccountDatabase(ActiveAccount account);
     }
 }

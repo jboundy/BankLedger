@@ -2,6 +2,7 @@
 using System.Linq;
 using BankLedger.BLL;
 using BankLedger.BLL.Interfaces;
+using BankLedger.BLL.Models;
 
 namespace BankLedger.ConsoleInterface
 {
@@ -11,6 +12,7 @@ namespace BankLedger.ConsoleInterface
         {
             var endApp = false;
             IAccountAccess accountManagement = new AccountAccess();
+            ActiveAccount _activeAccount;
             while (!endApp)
             {
                 Console.Write("Please select from the options below" +
@@ -38,10 +40,10 @@ namespace BankLedger.ConsoleInterface
                         username = Console.ReadLine();
                         Console.WriteLine("Please enter password");
                         password = Console.ReadLine();
-                        var activeAccount = accountManagement.Login(username, password);
-                        if (!string.IsNullOrEmpty(activeAccount.Username))
+                        _activeAccount = accountManagement.Login(username, password);
+                        if (!string.IsNullOrEmpty(_activeAccount.Username))
                         {
-                            IBalanceAccess balanceDetails = new BalanceAccess(activeAccount);
+                            IBalanceAccess balanceDetails = new BalanceAccess();
                             Console.WriteLine(Environment.NewLine);
                             Console.WriteLine("Account Logged in!");
                             var canLogin = true;
@@ -65,21 +67,24 @@ namespace BankLedger.ConsoleInterface
                                     case "1":
                                         Console.WriteLine("How much would you like to deposit?");
                                         amount = Convert.ToDecimal(Console.ReadLine());
-                                        var newBalance = balanceDetails.DepositFunds(amount);
-                                        Console.WriteLine($"Your new balance is ${newBalance}" + Environment.NewLine);
+                                        _activeAccount.Balance = balanceDetails.DepositFunds(_activeAccount, amount);
+                                        accountManagement.UpdateAccountDatabase(_activeAccount);
+                                        Console.WriteLine($"Your new balance is ${_activeAccount.Balance}" + Environment.NewLine);
                                         break;
                                     case "2":
                                         Console.WriteLine("How much would you like to withdraw?");
                                         amount = Convert.ToDecimal(Console.ReadLine());
-                                        var withdrawnBalance = balanceDetails.WithdrawFunds(amount);
-                                        Console.WriteLine($"Your new balance is ${withdrawnBalance}" + Environment.NewLine);
+                                        _activeAccount.Balance = balanceDetails.WithdrawFunds(_activeAccount, amount);
+                                        accountManagement.UpdateAccountDatabase(_activeAccount);
+                                        Console.WriteLine($"Your new balance is ${_activeAccount.Balance}" + Environment.NewLine);
                                         break;
                                     case "3":
-                                        var balance = balanceDetails.CurrentBalance();
-                                        Console.WriteLine($"Your current balance is ${balance}" + Environment.NewLine);
+                                        _activeAccount.Balance = balanceDetails.CurrentBalance(_activeAccount);
+                                        accountManagement.UpdateAccountDatabase(_activeAccount);
+                                        Console.WriteLine($"Your current balance is ${_activeAccount.Balance}" + Environment.NewLine);
                                         break;
                                     case "4":
-                                        var transactions = balanceDetails.RetrieveTransactions();
+                                        var transactions = balanceDetails.RetrieveTransactions(_activeAccount);
                                         if (transactions.Any())
                                         {
                                             foreach (var transaction in transactions)

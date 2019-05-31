@@ -14,37 +14,30 @@ namespace BankLedger.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(ActiveAccount account)
+        public IActionResult BalanceHome(ActiveAccount account)
         {
-            return View("Index", account);
+            return View(account);
         }
 
         [HttpPut]
-        public IActionResult Withdraw(decimal amount)
+        public IActionResult Withdraw(ActiveAccount account, decimal amount)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult( _balanceAccess.WithdrawFunds(amount));
+            return new JsonResult( _balanceAccess.WithdrawFunds(account, amount));
         }
 
         [HttpPut]
-        public IActionResult Deposit(decimal amount)
+        public IActionResult Deposit(ActiveAccount account, decimal amount)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult( _balanceAccess.DepositFunds(amount));
+            return new JsonResult( _balanceAccess.DepositFunds(account, amount));
         }
 
         [HttpGet]
-        public IActionResult CurrentBalance()
+        public IActionResult TransactionHistory(ActiveAccount account)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult( _balanceAccess.CurrentBalance());
-        }
-
-        [HttpGet]
-        public IActionResult TransactionHistory()
-        {
-            if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult( _balanceAccess.RetrieveTransactions());
+            return new JsonResult( _balanceAccess.RetrieveTransactions(account));
         }
     }
 }

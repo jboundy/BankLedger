@@ -2,7 +2,6 @@
 using System.Linq;
 using BankLedger.BLL.Interfaces;
 using BankLedger.BLL.Models;
-using BankLedger.DataAccess.Models;
 
 namespace BankLedger.BLL
 {
@@ -10,15 +9,16 @@ namespace BankLedger.BLL
     {
         public AccountAccess()
         {
-            Accounts = new List<Account>();
         }
-        public List<Account> Accounts { get; set; }
+
+        public List<ActiveAccount> Accounts { get; set; }
+
         public bool AccountCreate(string username, string password)
         {
             var accounts = GetAccounts();
             if (accounts.All(x => x.Username != username))
             {
-                Accounts.Add(new Account
+                Accounts.Add(new ActiveAccount
                 {
                     Username = username,
                     Password = password
@@ -31,7 +31,7 @@ namespace BankLedger.BLL
 
         public ActiveAccount Login(string username, string password)
         {
-            var account = Accounts.Find(x => x.Username == username && x.Password == password);
+            var account = FindAccount(username, password);
             if (account != null)
             {
                 return new ActiveAccount
@@ -45,15 +45,28 @@ namespace BankLedger.BLL
 
             return new ActiveAccount();
         }
-        
-        public List<Account> GetAccounts()
+
+        public void UpdateAccountDatabase(ActiveAccount account)
+        {
+            var accountFound = FindAccount(account.Username, account.Password);
+            Accounts.Remove(accountFound);
+            Accounts.Add(account);
+        }
+
+        public List<ActiveAccount> GetAccounts()
         {
             if (Accounts != null)
             {
                 return Accounts;
             }
 
-            return new List<Account>();
+            Accounts = new List<ActiveAccount>();
+            return Accounts;
+        }
+
+        private ActiveAccount FindAccount(string username, string password)
+        {
+            return GetAccounts().Find(x => x.Username == username && x.Password == password);
         }
     }
 }

@@ -6,43 +6,41 @@ namespace BankLedger.DataAccess
 {
     public class AccountDetails : IAccountDetails
     {
-        private IAccount _account;
-        public AccountDetails(IAccount account)
+        public AccountDetails()
         {
-            _account = account;
         }
-        public void ModifyBalance(TransactionType type, decimal amount)
+        public void ModifyBalance(TransactionType type, decimal amount, IAccount account)
         {
             switch (type)
             {
               case TransactionType.Deposit:
-                  _account.Balance += amount;
+                  account.Balance += amount;
                   break;
 
               case TransactionType.Withdraw:
-                  if (_account.Balance >= amount)
+                  if (account.Balance >= amount)
                   {
-                      _account.Balance -= amount;
+                      account.Balance -= amount;
                   }
                   break;
             }
 
-            LogTransaction(type, amount);
+            LogTransaction(type, amount, account);
         }
 
-        public decimal BalanceInquiry()
+        public decimal BalanceInquiry(IAccount account)
         {
-            return _account.Balance;
+            return account.Balance;
         }
 
-        public List<TransactionHistory> AllTransactions()
+        public List<TransactionHistory> AllTransactions(IAccount account)
         {
-            return _account.TransactionHistory;
+            return account.TransactionHistory;
         }
 
-        private void LogTransaction(TransactionType type, decimal amountChanged)
+        private void LogTransaction(TransactionType type, decimal amountChanged, IAccount account)
         {
-            _account.TransactionHistory.Add(new TransactionHistory(type, amountChanged));
+            account.TransactionHistory.Add(new TransactionHistory(type, amountChanged));
         }
     }
 }

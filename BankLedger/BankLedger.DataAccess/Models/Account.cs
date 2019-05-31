@@ -7,7 +7,6 @@ namespace BankLedger.DataAccess.Models
     {
         public Account()
         {
-            Balance = 0;
             TransactionHistory = new List<TransactionHistory>();
         }
         
