@@ -2,6 +2,7 @@
 using System.Linq;
 using BankLedger.BLL.Interfaces;
 using BankLedger.BLL.Models;
+using BankLedger.DataAccess.Models;
 
 namespace BankLedger.BLL
 {
@@ -10,15 +11,13 @@ namespace BankLedger.BLL
         public AccountAccess()
         {
         }
-
-        public List<ActiveAccount> Accounts { get; set; }
-
+        
         public bool AccountCreate(string username, string password)
         {
             var accounts = GetAccounts();
             if (accounts.All(x => x.Username != username))
             {
-                Accounts.Add(new ActiveAccount
+                FakeDbAccounts.DbAccounts.Add(new ActiveAccount
                 {
                     Username = username,
                     Password = password
@@ -31,40 +30,21 @@ namespace BankLedger.BLL
 
         public ActiveAccount Login(string username, string password)
         {
-            var account = FindAccount(username, password);
-            if (account != null)
+            return (ActiveAccount) FindAccount(username, password);
+        }
+
+        private List<Account> GetAccounts()
+        {
+            if (FakeDbAccounts.DbAccounts != null)
             {
-                return new ActiveAccount
-                {
-                    Balance = account.Balance,
-                    Password = account.Password,
-                    TransactionHistory = account.TransactionHistory,
-                    Username = account.Username
-                };
+                return FakeDbAccounts.DbAccounts;
             }
 
-            return new ActiveAccount();
+            FakeDbAccounts.DbAccounts = new List<Account>();
+            return FakeDbAccounts.DbAccounts;
         }
 
-        public void UpdateAccountDatabase(ActiveAccount account)
-        {
-            var accountFound = FindAccount(account.Username, account.Password);
-            Accounts.Remove(accountFound);
-            Accounts.Add(account);
-        }
-
-        public List<ActiveAccount> GetAccounts()
-        {
-            if (Accounts != null)
-            {
-                return Accounts;
-            }
-
-            Accounts = new List<ActiveAccount>();
-            return Accounts;
-        }
-
-        private ActiveAccount FindAccount(string username, string password)
+        private Account FindAccount(string username, string password)
         {
             return GetAccounts().Find(x => x.Username == username && x.Password == password);
         }

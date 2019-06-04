@@ -12,7 +12,6 @@ namespace BankLedger.ConsoleInterface
         {
             var endApp = false;
             IAccountAccess accountManagement = new AccountAccess();
-            ActiveAccount _activeAccount;
             while (!endApp)
             {
                 Console.Write("Please select from the options below" +
@@ -40,8 +39,8 @@ namespace BankLedger.ConsoleInterface
                         username = Console.ReadLine();
                         Console.WriteLine("Please enter password");
                         password = Console.ReadLine();
-                        _activeAccount = accountManagement.Login(username, password);
-                        if (!string.IsNullOrEmpty(_activeAccount.Username))
+                        var activeAccount = accountManagement.Login(username, password);
+                        if (!string.IsNullOrEmpty(activeAccount?.Username))
                         {
                             IBalanceAccess balanceDetails = new BalanceAccess();
                             Console.WriteLine(Environment.NewLine);
@@ -67,24 +66,21 @@ namespace BankLedger.ConsoleInterface
                                     case "1":
                                         Console.WriteLine("How much would you like to deposit?");
                                         amount = Convert.ToDecimal(Console.ReadLine());
-                                        _activeAccount.Balance = balanceDetails.DepositFunds(_activeAccount, amount);
-                                        accountManagement.UpdateAccountDatabase(_activeAccount);
-                                        Console.WriteLine($"Your new balance is ${_activeAccount.Balance}" + Environment.NewLine);
+                                        var newDepositedBalance = balanceDetails.DepositFunds(activeAccount, amount);
+                                        Console.WriteLine($"Your new balance is ${newDepositedBalance}" + Environment.NewLine);
                                         break;
                                     case "2":
                                         Console.WriteLine("How much would you like to withdraw?");
                                         amount = Convert.ToDecimal(Console.ReadLine());
-                                        _activeAccount.Balance = balanceDetails.WithdrawFunds(_activeAccount, amount);
-                                        accountManagement.UpdateAccountDatabase(_activeAccount);
-                                        Console.WriteLine($"Your new balance is ${_activeAccount.Balance}" + Environment.NewLine);
+                                        var newWithdrawnBalance = balanceDetails.WithdrawFunds(activeAccount, amount);
+                                        Console.WriteLine($"Your new balance is ${newWithdrawnBalance}" + Environment.NewLine);
                                         break;
                                     case "3":
-                                        _activeAccount.Balance = balanceDetails.CurrentBalance(_activeAccount);
-                                        accountManagement.UpdateAccountDatabase(_activeAccount);
-                                        Console.WriteLine($"Your current balance is ${_activeAccount.Balance}" + Environment.NewLine);
+                                        var balance = balanceDetails.CurrentBalance(activeAccount);
+                                        Console.WriteLine($"Your current balance is ${balance}" + Environment.NewLine);
                                         break;
                                     case "4":
-                                        var transactions = balanceDetails.RetrieveTransactions(_activeAccount);
+                                        var transactions = balanceDetails.RetrieveTransactions(activeAccount);
                                         if (transactions.Any())
                                         {
                                             foreach (var transaction in transactions)

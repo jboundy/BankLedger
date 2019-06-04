@@ -29,7 +29,13 @@ namespace BankLedger.Web.Controllers
         public IActionResult AccountLogin(string username, string password)
         {
             var account = _accountAccess.Login(username, password);
-            return new JsonResult(account);
+            if (account?.Username != null)
+            {
+                return Content(Url.Action("BalanceHome", "Balance", account));
+            }
+
+            return ViewComponent("ErrorModal", "Unable to login. Please try again");
+            //return new JsonResult("Unable to login. Please try again");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

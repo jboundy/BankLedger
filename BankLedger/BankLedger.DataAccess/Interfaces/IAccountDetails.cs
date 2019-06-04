@@ -5,7 +5,7 @@ namespace BankLedger.DataAccess.Interfaces
 {
     public interface IAccountDetails
     {
-        void ModifyBalance(TransactionType type, decimal amount, IAccount account);
+        void UpdateDatabaseAccount(TransactionType type, decimal amountChanged, IAccount account);
         decimal BalanceInquiry(IAccount account);
         List<TransactionHistory> AllTransactions(IAccount account);
     }

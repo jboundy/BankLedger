@@ -29,7 +29,7 @@ namespace BankLedger.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddSingleton<IAccount, ActiveAccount>();
+            //services.AddSingleton<IAccount, ActiveAccount>();
             services.AddSingleton<IAccountAccess, AccountAccess>();
             services.AddSingleton<IBalanceAccess, BalanceAccess>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -6,6 +6,5 @@ namespace BankLedger.BLL.Interfaces
     {
         bool AccountCreate(string username, string password);
         ActiveAccount Login(string username, string password);
-        void UpdateAccountDatabase(ActiveAccount account);
     }
 }

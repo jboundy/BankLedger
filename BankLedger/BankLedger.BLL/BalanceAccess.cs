@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using BankLedger.BLL.Interfaces;
 using BankLedger.BLL.Models;
 using BankLedger.DataAccess;
@@ -16,7 +16,8 @@ namespace BankLedger.BLL
         }
         public decimal DepositFunds(ActiveAccount account, decimal amount)
         {
-            _accountDetails.ModifyBalance(TransactionType.Deposit, amount, account);
+            var balance = _accountDetails.BalanceInquiry(account);
+            ModifyBalance(TransactionType.Deposit, balance, amount, account);
             return _accountDetails.BalanceInquiry(account);
         }
 
@@ -25,7 +26,7 @@ namespace BankLedger.BLL
             var balance = _accountDetails.BalanceInquiry(account);
             if (balance >= amount)
             {
-                _accountDetails.ModifyBalance(TransactionType.Withdraw, amount, account);
+                ModifyBalance(TransactionType.Withdraw, balance, amount, account);
             }
 
             return _accountDetails.BalanceInquiry(account);
@@ -36,9 +37,29 @@ namespace BankLedger.BLL
             return _accountDetails.BalanceInquiry(account);
         }
 
-        public ReadOnlyCollection<TransactionHistory> RetrieveTransactions(ActiveAccount account)
+        public List<TransactionHistory> RetrieveTransactions(ActiveAccount account)
         {
-            return _accountDetails.AllTransactions(account).AsReadOnly();
+            return _accountDetails.AllTransactions(account);
+        }
+
+        private void ModifyBalance(TransactionType type, decimal currentBalance, decimal amount, IAccount account)
+        {
+            switch (type)
+            {
+                case TransactionType.Deposit:
+                    currentBalance += amount;
+                    break;
+
+                case TransactionType.Withdraw:
+                    if (currentBalance >= amount)
+                    {
+                        currentBalance -= amount;
+                    }
+                    break;
+            }
+
+            account.Balance = currentBalance;
+            _accountDetails.UpdateDatabaseAccount(type, amount, account);
         }
     }
 }

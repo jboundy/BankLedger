@@ -16,6 +16,10 @@ namespace BankLedger.Web.Controllers
         [HttpGet]
         public IActionResult BalanceHome(ActiveAccount account)
         {
+            var transactions = _balanceAccess.RetrieveTransactions(account);
+            var balance = _balanceAccess.CurrentBalance(account);
+            account.TransactionHistory = transactions;
+            account.Balance = balance;
             return View(account);
         }
 
@@ -31,13 +35,6 @@ namespace BankLedger.Web.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
             return new JsonResult( _balanceAccess.DepositFunds(account, amount));
-        }
-
-        [HttpGet]
-        public IActionResult TransactionHistory(ActiveAccount account)
-        {
-            if (!ModelState.IsValid) return BadRequest();
-            return new JsonResult( _balanceAccess.RetrieveTransactions(account));
         }
     }
 }

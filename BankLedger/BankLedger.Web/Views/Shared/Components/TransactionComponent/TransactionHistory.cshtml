@@ -1,0 +1,24 @@
+﻿@model BankLedger.BLL.Models.ActiveAccount
+<table class="table" id="transactionHistoryTable">
+    <thead>
+        <tr>
+            <th scope="col">Transaction Type</th>
+            <th scope="col">Amount Changed</th>
+            <th scope="col">Date Changed</th>
+        </tr>
+    </thead>
+    <tbody>
+    <!--todo:this is bad and needs to be redone-->
+    @if (Model.TransactionHistory != null)
+    {
+        @foreach (var transaction in Model.TransactionHistory)
+         {
+             <tr>
+                 <th>@transaction?.Type</th>
+                 <th>@transaction?.AmountChanged</th>
+                 <th>@transaction?.ChangedDate</th>
+             </tr>
+         }
+    }
+    </tbody>
+</table>

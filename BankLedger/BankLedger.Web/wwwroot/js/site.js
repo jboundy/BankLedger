@@ -10,20 +10,36 @@ $('#createAccount').click(function () {
     });
 });
 
+$('#loginAccount').click(function() {
+    var data = $('#loginAccountForm').serialize();
+    $.ajax({
+        url: 'Home/AccountLogin',
+        data: data,
+        contentType: dataType,
+        type: 'GET'
+    }).done(function (result, status) {
+        if (status !== 'success') {
+            $('#errorContent').text(result);
+            $('.alert').alert();
+        } else {
+           window.location.href = result;
+        }
+    });
+});
+
 $('#deposit').click(function () {
-    CallAction('Deposit');
+    var accountUpdate = CallAction('Deposit');
+    $('#currentBalance').text('Current Balance: $' + accountUpdate.balance);
+    $('#Balance').val("0");
 });
 
 $('#withdraw').click(function () {
-    CallAction('Withdraw');
+    var accountUpdate = CallAction('Withdraw');
+    $('#currentBalance').text('Current Balance: $' + accountUpdate.balance);
 });
 
-$('#transactionHistory').click(function() {
-    $.ajax({
-        url: 'TransactionHistory',
-        contentType: 'json',
-        type: 'GET'
-    });
+$('#transactionHistory').click(function () {
+    document.location.reload(true);
 });
 
 var CallAction = function(url) {
@@ -35,8 +51,6 @@ var CallAction = function(url) {
         Username: obj.username,
         Password: obj.password
     };
-    console.log(amount);
-    console.log(account);
     $.ajax({
         url: url,
         data: {
@@ -47,5 +61,7 @@ var CallAction = function(url) {
         type: 'PUT'
     }).done(function(result) {
         obj.balance = result;
+        $('#currentBalance').text('Current Balance: $' + result);
     });
+    return obj;
 };

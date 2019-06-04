@@ -9,38 +9,33 @@ namespace BankLedger.DataAccess
         public AccountDetails()
         {
         }
-        public void ModifyBalance(TransactionType type, decimal amount, IAccount account)
-        {
-            switch (type)
-            {
-              case TransactionType.Deposit:
-                  account.Balance += amount;
-                  break;
-
-              case TransactionType.Withdraw:
-                  if (account.Balance >= amount)
-                  {
-                      account.Balance -= amount;
-                  }
-                  break;
-            }
-
-            LogTransaction(type, amount, account);
-        }
-
         public decimal BalanceInquiry(IAccount account)
         {
-            return account.Balance;
+            return FindAccount(account).Balance;
         }
 
         public List<TransactionHistory> AllTransactions(IAccount account)
         {
-            return account.TransactionHistory;
+            return FindAccount(account).TransactionHistory;
+        }
+        
+        public void UpdateDatabaseAccount(TransactionType type, decimal amountChanged, IAccount account)
+        {
+            var accountToRemove = FindAccount(account);
+            account.TransactionHistory = account.TransactionHistory == null ? new List<TransactionHistory>() : accountToRemove.TransactionHistory;
+            account.TransactionHistory.Add(new TransactionHistory(type, amountChanged));
+            UpdateDb(accountToRemove, account);
         }
 
-        private void LogTransaction(TransactionType type, decimal amountChanged, IAccount account)
+        private Account FindAccount(IAccount account)
         {
-            account.TransactionHistory.Add(new TransactionHistory(type, amountChanged));
+            return FakeDbAccounts.DbAccounts.Find(acc => acc.Username == account.Username && acc.Password == account.Password);
+        }
+
+        private void UpdateDb(IAccount accountToRemove, IAccount accountToAdd)
+        {
+            FakeDbAccounts.DbAccounts.Remove((Account)accountToRemove);
+            FakeDbAccounts.DbAccounts.Add((Account)accountToAdd);
         }
     }
 }
