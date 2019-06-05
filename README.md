@@ -13,6 +13,6 @@ This Readme contains some information about the project and instructions on setu
 
 ### Improvements ###
 - A TDD style could have been used to add more confidence in code.
-- More validations and UI changes would make a better user experience.
+- Adding more validations and UI changes would make a better user experience.
 - The console app could be seperated for better readability.
 - A DI Container for the console application would be ideal.
