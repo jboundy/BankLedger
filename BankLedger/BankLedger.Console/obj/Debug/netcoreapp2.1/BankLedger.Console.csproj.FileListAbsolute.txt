@@ -1,0 +1,16 @@
+C:\source\BankLedger\BankLedger\BankLedger.Console\obj\Debug\netcoreapp2.1\BankLedger.Console.csprojAssemblyReference.cache
+C:\source\BankLedger\BankLedger\BankLedger.Console\obj\Debug\netcoreapp2.1\BankLedger.Console.csproj.CoreCompileInputs.cache
+C:\source\BankLedger\BankLedger\BankLedger.Console\obj\Debug\netcoreapp2.1\BankLedger.Console.AssemblyInfoInputs.cache
+C:\source\BankLedger\BankLedger\BankLedger.Console\obj\Debug\netcoreapp2.1\BankLedger.Console.AssemblyInfo.cs
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.ConsoleInterface.deps.json
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.ConsoleInterface.runtimeconfig.json
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.ConsoleInterface.runtimeconfig.dev.json
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.ConsoleInterface.dll
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.ConsoleInterface.pdb
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.BLL.dll
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.DataAccess.dll
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.BLL.pdb
+C:\source\BankLedger\BankLedger\BankLedger.Console\bin\Debug\netcoreapp2.1\BankLedger.DataAccess.pdb
+C:\source\BankLedger\BankLedger\BankLedger.Console\obj\Debug\netcoreapp2.1\BankLedger.Console.csproj.CopyComplete
+C:\source\BankLedger\BankLedger\BankLedger.Console\obj\Debug\netcoreapp2.1\BankLedger.ConsoleInterface.dll
+C:\source\BankLedger\BankLedger\BankLedger.Console\obj\Debug\netcoreapp2.1\BankLedger.ConsoleInterface.pdb

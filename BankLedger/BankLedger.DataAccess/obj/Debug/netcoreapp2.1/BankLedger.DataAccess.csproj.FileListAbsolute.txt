@@ -1,0 +1,9 @@
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\obj\Debug\netcoreapp2.1\BankLedger.DataAccess.csproj.CoreCompileInputs.cache
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\obj\Debug\netcoreapp2.1\BankLedger.DataAccess.AssemblyInfoInputs.cache
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\obj\Debug\netcoreapp2.1\BankLedger.DataAccess.AssemblyInfo.cs
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\bin\Debug\netcoreapp2.1\BankLedger.DataAccess.deps.json
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\bin\Debug\netcoreapp2.1\BankLedger.DataAccess.dll
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\bin\Debug\netcoreapp2.1\BankLedger.DataAccess.pdb
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\obj\Debug\netcoreapp2.1\BankLedger.DataAccess.dll
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\obj\Debug\netcoreapp2.1\BankLedger.DataAccess.pdb
+C:\source\BankLedger\BankLedger\BankLedger.DataAccess\obj\Debug\netcoreapp2.1\BankLedger.DataAccess.csprojAssemblyReference.cache
