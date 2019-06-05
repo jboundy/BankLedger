@@ -7,6 +7,8 @@ $('#createAccount').click(function () {
         data: data,
         contentType: dataType,
         type: 'POST'
+    }).done(function(result) {
+        $('#createAccountModal').modal('hide');
     });
 });
 
@@ -16,13 +18,14 @@ $('#loginAccount').click(function() {
         url: 'Home/AccountLogin',
         data: data,
         contentType: dataType,
-        type: 'GET'
-    }).done(function (result, status) {
-        if (status !== 'success') {
-            $('#errorContent').text(result);
-            $('.alert').alert();
-        } else {
-           window.location.href = result;
+        type: 'GET',
+        statusCode: {
+            400: function () {
+                $('#errorAccountModal').modal('show');
+            }
+        },
+        success: function(result, textStatus, jqXhr) {
+            window.location.href = result;
         }
     });
 });

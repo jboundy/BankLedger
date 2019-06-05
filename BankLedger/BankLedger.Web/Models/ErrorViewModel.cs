@@ -1,5 +1,3 @@
-using System;
-
 namespace BankLedger.Web.Models
 {
     public class ErrorViewModel

@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using BankLedger.BLL.Interfaces;
+﻿using BankLedger.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using BankLedger.Web.Models;
 
 namespace BankLedger.Web.Controllers
 {
@@ -34,14 +32,7 @@ namespace BankLedger.Web.Controllers
                 return Content(Url.Action("BalanceHome", "Balance", account));
             }
 
-            return ViewComponent("ErrorModal", "Unable to login. Please try again");
-            //return new JsonResult("Unable to login. Please try again");
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return BadRequest();
         }
     }
 }

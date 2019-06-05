@@ -1,7 +1,5 @@
 ﻿using BankLedger.BLL;
 using BankLedger.BLL.Interfaces;
-using BankLedger.BLL.Models;
-using BankLedger.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +27,6 @@ namespace BankLedger.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //services.AddSingleton<IAccount, ActiveAccount>();
             services.AddSingleton<IAccountAccess, AccountAccess>();
             services.AddSingleton<IBalanceAccess, BalanceAccess>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
