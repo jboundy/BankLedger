@@ -9,7 +9,7 @@ This Readme contains some information about the project and instructions on setu
 
 ### Instructions ###
 - To run the console application you will need to open the command line, find the dll file in the bin directory, and use the command "dotnet pathtodllfile".
-- To run the web application you will need to open the command line, find the csproj file and use the command "dotnet run --project pathtocsprojfile".
+- To run the web application you will need to open the command line, find the csproj file, and use the command "dotnet run --project pathtocsprojfile".
 
 ### Improvements ###
 - A TDD style could have been used to add more confidence in code.
