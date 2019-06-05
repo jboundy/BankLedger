@@ -16,4 +16,3 @@ This Readme contains some information about the project and instructions on setu
 - More validations and UI changes would make a better user experience.
 - The console app could be seperated for better readability.
 - A DI Container for the console application would be ideal.
-- The validation formatting could be improved.
